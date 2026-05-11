@@ -2,40 +2,31 @@
 
 Company website to manage office presence and lunch orders.
 
-## First user stories 
+## First user stories
 
-- Everyone authenticates with Microsoft account
-- People can mark per day whether they expect to to be in the office
-- Backoffice can mark the days that lunch is provided
-- People can note their default lunch order
-- People can adjust their 
-- Backoffice can easily see for who to order lunch
-- Mark yourself as available or busy for meetings
-- Telegram bot for quick status updates (`/whoisin`, `/available`, ...)
-- SSO via your Microsoft (Azure AD) account — no separate login
-
----
+* Everyone authenticates with Microsoft account
+* People can mark per day whether they expect to to be in the office
+* Backoffice can mark the days that lunch is provided
+* People can set their default lunch order
+* People can adjust their lunch order per relevant day
+* Backoffice can easily see for who to order lunch
 
 ## Tech stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | Vue 3 + Vite + TypeScript |
-| Hosting | Azure Static Web Apps |
-| Backend | Node.js + Express + TypeScript |
+| Layer    | Technology                       |
+| -------- | -------------------------------- |
+| Frontend | Vue 3 + Vite + TypeScript        |
+| Hosting  | Azure Static Web Apps            |
+| Backend  | Node.js + Express + TypeScript   |
 | Database | SQLite (dev) / PostgreSQL (prod) |
-| Auth | Azure AD (Entra ID) |
-
----
+| Auth     | Azure AD (Entra ID)              |
 
 ## Prerequisites
 
-- Node.js `>=20`
-- npm `>=10`
-- Docker Desktop (for backend local dev)
-- _[Azure CLI — optional, needed for prod deployments]_
-
----
+* Node.js `>=20`
+* npm `>=10`
+* Docker Desktop (for backend local dev)
+* *[Azure CLI — optional, needed for prod deployments]*
 
 ## Getting started
 
@@ -65,40 +56,22 @@ cd frontend && npm run dev
 
 Frontend runs at `http://localhost:5173`, backend at `http://localhost:3000`.
 
----
-
-## Telegram bot (local dev)
-
-To test the Telegram webhook locally you need to expose your backend publicly:
-
-```bash
-ngrok http 3000
-# Then register the webhook:
-# https://api.telegram.org/bot<TOKEN>/setWebhook?url=<NGROK_URL>/telegram/webhook
-```
-
----
-
 ## Environment variables
 
 See `backend/.env.example` and `frontend/.env.example` for all variables and descriptions.
-
----
 
 ## Deployment
 
 Deployments are automated via GitHub Actions on push to `main`.
 
-| Target | Workflow | Trigger |
-|---|---|---|
+| Target   | Workflow                         | Trigger                 |
+| -------- | -------------------------------- | ----------------------- |
 | Frontend | `.github/workflows/frontend.yml` | push to `main` / any PR |
-| Backend | `.github/workflows/backend.yml` | push to `main` |
+| Backend  | `.github/workflows/backend.yml`  | push to `main`          |
 
 PRs automatically get a frontend preview URL from Azure Static Web Apps.
 
-_[TODO: Azure setup steps — Static Web Apps resource, Container Apps, ACR — or link to internal wiki]_
-
----
+*[TODO: Azure setup steps — Static Web Apps resource, Container Apps, ACR — or link to internal wiki]*
 
 ## Contributing
 
@@ -109,8 +82,6 @@ _[TODO: Azure setup steps — Static Web Apps resource, Container Apps, ACR — 
 
 See `CLAUDE.md` for architecture decisions and coding conventions.
 
----
-
 ## License
 
-_[TODO: Define — internal/private or open source]_
+This project is licensed under the GNU GPL v3.0 — see the LICENSE file for details.

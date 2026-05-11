@@ -1,20 +1,15 @@
 # CLAUDE.md — Office Presence App
 
-This file is context for Claude Code. It describes architecture decisions, conventions, and workflow rules — not how to run the project (see README).
-
----
+This file is context for Claude Code. It describes architecture decisions, conventions, and workflow rules — not how to run the project (see README.md).
 
 ## Architecture
 
 Single repo, two deployable units:
 
-- **Frontend:** Vue 3 + Vite + TypeScript → Azure Static Web Apps (static files, no Docker)
+- **Frontend:** Vue 3 + Vite + TypeScript → Azure Static Web Apps
 - **Backend:** Node.js + Express + TypeScript → Docker → Azure Container Apps
-- **Database:** SQLite (dev) / Azure Database for PostgreSQL (prod) — swapped via `DATABASE_URL` only
+- **Database:** SQLite (dev) / Azure Database for PostgreSQL (prod) — swapped via `DATABASE_URL`
 - **Auth:** Azure AD (Entra ID), MSAL.js on frontend, JWT validation via `jwks-rsa` on backend
-- **Bot:** Telegram webhook, handled inside backend as a module
-
----
 
 ## Repo Structure
 
@@ -34,8 +29,7 @@ Single repo, two deployable units:
 │   │   ├── routes/
 │   │   ├── modules/
 │   │   │   ├── presence/
-│   │   │   ├── availability/
-│   │   │   └── telegram/
+│   │   │   ├── orders/
 │   │   ├── middleware/     # auth, error handling
 │   │   ├── db/             # Prisma client
 │   │   └── index.ts
@@ -53,16 +47,12 @@ Single repo, two deployable units:
 └── CLAUDE.md
 ```
 
----
-
 ## Database Rules
 
 - Use Prisma for **all** DB access — no raw SQL
 - Keep schema compatible with both SQLite and PostgreSQL — avoid Postgres-only column types
 - Migrations: `prisma migrate dev` locally, `prisma migrate deploy` in CI
 - Migrations live in `backend/prisma/migrations/` and are committed to the repo
-
----
 
 ## Code Conventions
 
@@ -75,15 +65,10 @@ Single repo, two deployable units:
 - All timestamps in UTC, ISO 8601 format
 - Environment variables documented in `.env.example` — never hardcode secrets
 
----
-
 ## Auth Rules
 
 - Frontend: PKCE flow via `@azure/msal-browser` — no client secret in browser
 - Backend: validate Azure AD JWTs on every protected route via middleware
-- Telegram bot token injected via env var, never committed
-
----
 
 ## CI/CD
 
@@ -91,16 +76,12 @@ Single repo, two deployable units:
 - `backend.yml`: triggers on push to `main` touching `backend/` — builds, runs tests, builds Docker image, pushes to ACR, deploys to Container Apps
 - `main` branch must always be deployable
 
----
-
 ## Workflow
 
 - **Issues:** created in GitHub with labels (`feature`, `bug`, `chore`)
 - **Branches:** `feat/short-description` or `fix/short-description`
 - **PRs:** reference the issue number, CI must pass before merge
 - **Claude Code:** reference the issue number in your prompt for traceability
-
----
 
 ## Key Commands
 
