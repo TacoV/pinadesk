@@ -1,0 +1,50 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      - run: cd backend && npm ci
+      - run: cd backend && npm run build
+      - run: cd backend && npm test
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: cd backend && npm ci
+      - run: cd backend && npm run build
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      - run: |
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }} ./backend
+          docker push ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
+      - uses: azure/container-apps-deploy-action@v1
+        with:
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          container-app-name: pinadesk-backend
+          image: ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
