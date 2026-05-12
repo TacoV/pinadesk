@@ -27,10 +27,12 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.2",
     "eslint": "^10.3.0",
-    "prettier": "^3.8.3",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
     "prisma": "^7.8.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3"
   }
 }
