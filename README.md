@@ -56,6 +56,12 @@ cd frontend && npm run dev
 
 Frontend runs at `http://localhost:5173`, backend at `http://localhost:3000`.
 
+## Data model
+
+We have Users (all our colleagues), Lunch Options (the list from the bistro), and Lunch Days (days that lunch is provided).
+Users can mark themself present any weekday, and if that day is a Lunch Day, an Lunch Order gets prepared, using their default settings.
+Orders can be updated. If a Lunch Day is added, the existing present colleagues also get a Lunch Order prepared.
+
 ## Environment variables
 
 See `backend/.env.example` and `frontend/.env.example` for all variables and descriptions.
