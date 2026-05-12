@@ -32,8 +32,8 @@ Company website to manage office presence and lunch orders.
 
 ```bash
 # 1. Clone
-git clone https://github.com/your-org/office-presence.git
-cd office-presence
+git clone https://github.com/TacoV/pinadesk.git
+cd pinadesk
 
 # 2. Install dependencies
 cd frontend && npm install && cd ..
@@ -86,19 +86,15 @@ See `CLAUDE.md` for architecture decisions and coding conventions.
 
 ### Frontend
 **Dependencies:**
-- `@azure/msal-browser`: Microsoft Authentication Library for handling Azure AD authentication
-- `pinia`: State management library for Vue 3
 - `vue`: Vue 3 framework
-- `vue-router`: Routing for Vue 3 applications
+- `vue-router`: Vue 3 Routing
+- `pinia`: Vue 3 State management
+- `@azure/msal-browser`: Microsoft Authentication Library for handling Azure AD authentication
 
 **Dev dependencies:**
-- `@vitejs/plugin-vue`: Vite plugin for Vue 3
-- `eslint`: JavaScript/TypeScript linter
-- `eslint-plugin-vue`: ESLint plugin for Vue-specific rules
-- `prettier`: Code formatter
-- `typescript`: TypeScript compiler
-- `vite`: Build tool and development server
-- `vue-tsc`: Vue TypeScript compiler for type checking .vue files
+- `eslint` and `eslint-plugin-vue`: [ESLint plugin](https://vuejs.org/guide/scaling-up/tooling.html#linting) for linting
+- `vite` and `@vitejs/plugin-vue`: [Build tool](https://vite.dev/) and corresponding [Vite plugin](https://vuejs.org/guide/scaling-up/tooling.html#vitejs-plugin-vue)
+- `typescript` and `vue-tsc`: [Vue TypeScript](https://vuejs.org/guide/typescript/overview.html#overview)
 
 ### Backend
 **Dependencies:**
@@ -118,7 +114,6 @@ See `CLAUDE.md` for architecture decisions and coding conventions.
 - `@types/node`: TypeScript definitions for Node.js
 - `eslint`: JavaScript/TypeScript linter
 - `jest`: Testing framework
-- `prettier`: Code formatter
 - `prisma`: Prisma ORM CLI and runtime
 - `ts-jest`: Jest transformer for TypeScript
 - `ts-node`: TypeScript execution environment for Node.js

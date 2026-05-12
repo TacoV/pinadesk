@@ -57,7 +57,7 @@ Single repo, two deployable units:
 ## Code Conventions
 
 - TypeScript strict mode in both frontend and backend
-- ESLint + Prettier enforced — don't leave lint errors
+- ESLint enforced — don't leave lint errors
 - Vue components use `<script setup>` style only
 - Pinia for all frontend state
 - Express routes stay thin — logic lives in module files under `modules/`
