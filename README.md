@@ -98,14 +98,14 @@ See `CLAUDE.md` for architecture decisions and coding conventions.
 
 ### Backend
 **Dependencies:**
-- `@prisma/adapter-better-sqlite3`: Prisma adapter for better-sqlite3 (SQLite)
-- `@prisma/client`: Prisma ORM client for database access
-- `cors`: Middleware for enabling CORS
-- `dotenv`: Loads environment variables from .env file
-- `express`: Web framework for Node.js
-- `helmet`: Security middleware for Express
-- `jsonwebtoken`: JWT implementation for authentication
-- `jwks-rsa`: Library to retrieve RSA signing keys from JWKS endpoint
+- `express`: [Web framework](https://expressjs.com/) for Node.js
+- `helmet`: [Security](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet) middleware
+- `cors`: [Cross-Origin](https://github.com/expressjs/cors#readme) middleware
+- `dotenv`: [Loads environment variables](https://github.com/motdotla/dotenv#readme) from .env file
+- `@prisma/adapter-better-sqlite3`: Prisma adapter for [better-sqlite3](https://www.prisma.io/docs/orm/v6/overview/databases/sqlite#using-the-better-sqlite3-driver) (SQLite)
+- `@prisma/client`: [Prisma ORM client](https://www.prisma.io/docs/orm/prisma-client) for database access
+- `jsonwebtoken`: [JWT implementation](https://github.com/auth0/node-jsonwebtoken#readme) for authentication
+- `jwks-rsa`: [Library](https://github.com/auth0/node-jwks-rsa#readme) to retrieve RSA signing keys from JWKS endpoint
 
 **Dev dependencies:**
 - `@types/better-sqlite3`: TypeScript definitions for better-sqlite3
@@ -113,9 +113,7 @@ See `CLAUDE.md` for architecture decisions and coding conventions.
 - `@types/jest`: TypeScript definitions for Jest
 - `@types/node`: TypeScript definitions for Node.js
 - `eslint`: JavaScript/TypeScript linter
-- `jest`: Testing framework
 - `prisma`: Prisma ORM CLI and runtime
-- `ts-jest`: Jest transformer for TypeScript
 - `ts-node`: TypeScript execution environment for Node.js
 - `tsx`: TypeScript execution environment (used for dev)
 - `typescript`: TypeScript compiler
