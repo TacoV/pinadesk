@@ -13,52 +13,53 @@ datasource db {
 }
 
 model User {
-  id                   String   @id @default(cuid())
-  email                String   @unique
+  id                   String       @id @default(cuid())
+  email                String       @unique
   name                 String
-  defaultLunchOptionId String?  // reference to LunchOption, null for no lunch
+  defaultLunchOptionId String?
   defaultLunchOption   LunchOption? @relation("UserDefaultLunch", fields: [defaultLunchOptionId], references: [id], onDelete: SetNull)
 
-  presences            UserPresence[]
-  lunchOrders          LunchOrder[]
+  presences   UserPresence[]
+  lunchOrders LunchOrder[]
 }
 
 model UserPresence {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date      String   // ISO 8601 date (YYYY-MM-DD)
-  isPresent Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id     String   @id @default(cuid())
+  userId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date   DateTime
 
   @@unique([userId, date])
   @@index([date])
 }
 
 model LunchDay {
-  date      String   @id // ISO 8601 date (YYYY-MM-DD)
-  reason    String   // e.g. "Meeting", "Friday"
+  id     String   @id @default(cuid())
+  date   DateTime @unique
+  reason String?
+
+  orders LunchOrder[]
 }
 
 model LunchOption {
-  id        String   @id @default(cuid())
-  name      String   // e.g. "Italian Sub"
-  breadType String   // e.g. "ciabatta", "whole wheat", "sourdough"
-  price     Decimal  @db.Decimal(10, 2)
+  id        String  @id @default(cuid())
+  name      String
+  breadType String
+  price     Decimal
+
+  defaultUsers User[]       @relation("UserDefaultLunch")
+  lunchOrders  LunchOrder[]
 }
 
 model LunchOrder {
-  id             String   @id @default(cuid())
-  userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  lunchOptionId  String
-  lunchOption    LunchOption @relation(fields: [lunchOptionId], references: [id], onDelete: Restrict)
-  date           String   // ISO 8601 date (YYYY-MM-DD)
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lunchOptionId String
+  lunchOption   LunchOption @relation(fields: [lunchOptionId], references: [id], onDelete: Restrict)
+  lunchDayId    String
+  lunchDay      LunchDay    @relation(fields: [lunchDayId], references: [id], onDelete: Cascade)
+  status        String
 
-  @@unique([userId, date])
-  @@index([date])
+  @@unique([userId, lunchDayId])
 }
-
-
-
