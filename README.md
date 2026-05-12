@@ -82,6 +82,49 @@ PRs automatically get a frontend preview URL from Azure Static Web Apps.
 
 See `CLAUDE.md` for architecture decisions and coding conventions.
 
+## Packages explanation
+
+### Frontend
+**Dependencies:**
+- `@azure/msal-browser`: Microsoft Authentication Library for handling Azure AD authentication
+- `pinia`: State management library for Vue 3
+- `vue`: Vue 3 framework
+- `vue-router`: Routing for Vue 3 applications
+
+**Dev dependencies:**
+- `@vitejs/plugin-vue`: Vite plugin for Vue 3
+- `eslint`: JavaScript/TypeScript linter
+- `eslint-plugin-vue`: ESLint plugin for Vue-specific rules
+- `prettier`: Code formatter
+- `typescript`: TypeScript compiler
+- `vite`: Build tool and development server
+- `vue-tsc`: Vue TypeScript compiler for type checking .vue files
+
+### Backend
+**Dependencies:**
+- `@prisma/adapter-better-sqlite3`: Prisma adapter for better-sqlite3 (SQLite)
+- `@prisma/client`: Prisma ORM client for database access
+- `cors`: Middleware for enabling CORS
+- `dotenv`: Loads environment variables from .env file
+- `express`: Web framework for Node.js
+- `helmet`: Security middleware for Express
+- `jsonwebtoken`: JWT implementation for authentication
+- `jwks-rsa`: Library to retrieve RSA signing keys from JWKS endpoint
+
+**Dev dependencies:**
+- `@types/better-sqlite3`: TypeScript definitions for better-sqlite3
+- `@types/express`: TypeScript definitions for Express
+- `@types/jest`: TypeScript definitions for Jest
+- `@types/node`: TypeScript definitions for Node.js
+- `eslint`: JavaScript/TypeScript linter
+- `jest`: Testing framework
+- `prettier`: Code formatter
+- `prisma`: Prisma ORM CLI and runtime
+- `ts-jest`: Jest transformer for TypeScript
+- `ts-node`: TypeScript execution environment for Node.js
+- `tsx`: TypeScript execution environment (used for dev)
+- `typescript`: TypeScript compiler
+
 ## License
 
 This project is licensed under the GNU GPL v3.0 — see the LICENSE file for details.
