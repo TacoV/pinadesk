@@ -13,20 +13,51 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                   String   @id @default(cuid())
+  email                String   @unique
+  name                 String
+  defaultLunchOptionId String?  // reference to LunchOption, null for no lunch
+  defaultLunchOption   LunchOption? @relation("UserDefaultLunch", fields: [defaultLunchOptionId], references: [id], onDelete: SetNull)
+
+  presences            UserPresence[]
+  lunchOrders          LunchOrder[]
 }
 
-model Presence {
+model UserPresence {
   id        String   @id @default(cuid())
   userId    String
-  status    String
-  location  String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String   // ISO 8601 date (YYYY-MM-DD)
+  isPresent Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@index([date])
+}
+
+model LunchDay {
+  date      String   @id // ISO 8601 date (YYYY-MM-DD)
+  reason    String   // e.g. "Meeting", "Friday"
+}
+
+model LunchOption {
+  id        String   @id @default(cuid())
+  name      String   // e.g. "Italian Sub"
+  breadType String   // e.g. "ciabatta", "whole wheat", "sourdough"
+  price     Decimal  @db.Decimal(10, 2)
+}
+
+model LunchOrder {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lunchOptionId  String
+  lunchOption    LunchOption @relation(fields: [lunchOptionId], references: [id], onDelete: Restrict)
+  date           String   // ISO 8601 date (YYYY-MM-DD)
+
+  @@unique([userId, date])
+  @@index([date])
 }
 
 
