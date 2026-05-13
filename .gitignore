@@ -8,3 +8,7 @@ frontend/.env
 
 # Dev database
 backend/dev.db
+
+# Builds
+frontend/dist/
+backend/dist/

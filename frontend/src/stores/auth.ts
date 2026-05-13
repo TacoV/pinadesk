@@ -48,6 +48,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     async initialize() {
+      await msalInstance.initialize()
       await this.handleRedirect()
       const accounts = msalInstance.getAllAccounts()
       if (accounts.length > 0) {
