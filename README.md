@@ -28,33 +28,46 @@ Company website to manage office presence and lunch orders.
 * Docker Desktop (for backend local dev)
 * *[Azure CLI — optional, needed for prod deployments]*
 
-## Getting started
+## Running the backend
 
 ```bash
-# 1. Clone
-git clone https://github.com/TacoV/pinadesk.git
-cd pinadesk
+# 1. Locate backend part of the code
+cd backend
 
 # 2. Install dependencies
-cd frontend && npm install && cd ..
-cd backend && npm install && cd ..
+npm install
 
 # 3. Set up environment variables
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
-# Edit both .env files — see comments inside
+cp .env.example .env
+# Then edit the .env file as needed
 
 # 4. Set up the database
-cd backend && npx prisma migrate dev
+npx prisma migrate dev
 
 # 5. Start backend
-cd backend && npm run dev
-
-# 6. Start frontend (new terminal)
-cd frontend && npm run dev
+npm run dev
 ```
 
-Frontend runs at `http://localhost:5173`, backend at `http://localhost:3000`.
+Backend then runs at `http://localhost:3000`.
+
+## Running the frontend
+
+```bash
+# 1. Locate frontend part of the code
+cd frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Set up environment variables
+cp .env.example .env
+# Then edit the .env file as needed
+
+# 4. Start frontend (new terminal)
+npm run dev
+```
+
+Frontend runs at `http://localhost:5173`.
 
 ## Data model
 
