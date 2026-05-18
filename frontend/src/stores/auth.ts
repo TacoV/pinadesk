@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async logout() {
       try {
-        await msalInstance.logoutPopup()
+        await msalInstance.logoutRedirect()
         this.user = null
         this.isAuthenticated = false
       } catch (error) {
