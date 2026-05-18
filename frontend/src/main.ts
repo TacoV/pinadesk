@@ -13,4 +13,7 @@ app.use(router)
 
 app.mount('#app')
 
-useAuthStore().initialize()
+const auth = useAuthStore()
+auth.initialize().catch(error => {
+  console.error('Auth initialization failed:', error)
+})

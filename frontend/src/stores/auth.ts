@@ -11,12 +11,7 @@ export const useAuthStore = defineStore('auth', {
     async login() {
       this.isLoading = true
       try {
-        const response = await msalInstance.loginPopup(loginRequest)
-        this.user = {
-          name: response.account.name,
-          email: response.account.username
-        }
-        this.isAuthenticated = true
+        await msalInstance.loginRedirect(loginRequest)
       } catch (error) {
         console.error('Login failed:', error)
         throw error
@@ -38,7 +33,7 @@ export const useAuthStore = defineStore('auth', {
         const response = await msalInstance.handleRedirectPromise()
         if (response) {
           this.user = {
-            name: response.account.name,
+            name: response.account.name ?? '- unknown -',
             email: response.account.username
           }
           this.isAuthenticated = true
@@ -53,11 +48,13 @@ export const useAuthStore = defineStore('auth', {
       const accounts = msalInstance.getAllAccounts()
       if (accounts.length > 0) {
         const account = accounts[0]
-        this.user = {
-          name: account.name,
-          email: account.username
+        if (account) {
+          this.user = {
+            name: account.name ?? '- unknown -',
+            email: account.username
+          }
+          this.isAuthenticated = true
         }
-        this.isAuthenticated = true
       }
     }
   }
