@@ -10,17 +10,20 @@ const today = computed(() => new Date())
 
 const thisWeekStart = computed(() => {
   const d = new Date(today.value)
-  d.setDate(d.getDate() - d.getDay()) // Start on Sunday
+  const mondayOffset = (d.getDay() + 6) % 7
+  d.setDate(d.getDate() - mondayOffset) // Start on Monday
   d.setHours(0, 0, 0, 0)
   return d
 })
 
+/*
 const thisWeekEnd = computed(() => {
   const d = new Date(thisWeekStart.value)
-  d.setDate(d.getDate() + 6) // End on Saturday
+  d.setDate(d.getDate() + 6) // End on Sunday
   d.setHours(23, 59, 59, 999)
   return d
 })
+*/
 
 const nextWeekStart = computed(() => {
   const d = new Date(thisWeekStart.value)
