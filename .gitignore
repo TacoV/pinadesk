@@ -12,4 +12,4 @@ backend/dev.db
 # Builds
 frontend/dist/
 backend/dist/
-backend/prisma/generated/
+backend/src/generated/
