@@ -30,14 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: azure/login@v1
         with:
-          node-version: '24'
-      - uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.ACR_NAME }}.azurecr.io
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: az acr login --name ${{ secrets.ACR_NAME }}
       - run: |
           docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }} ./backend
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
