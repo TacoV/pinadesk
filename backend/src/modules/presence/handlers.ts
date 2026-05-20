@@ -2,8 +2,23 @@ import { Request, Response } from 'express'
 import { prisma } from '../../db'
 
 export async function getPresence(req: Request, res: Response) {
-  const { userId } = req.params
+  const rawUserId = req.params.userId
+  const userId = typeof rawUserId === 'string'
+    ? rawUserId
+    : Array.isArray(rawUserId) && rawUserId.length > 0 && typeof rawUserId[0] === 'string'
+      ? rawUserId[0]
+      : undefined
   const { startDate, endDate } = req.query
+  const startDateString = typeof startDate === 'string'
+    ? startDate
+    : Array.isArray(startDate) && startDate.length > 0 && typeof startDate[0] === 'string'
+      ? startDate[0]
+      : undefined
+  const endDateString = typeof endDate === 'string'
+    ? endDate
+    : Array.isArray(endDate) && endDate.length > 0 && typeof endDate[0] === 'string'
+      ? endDate[0]
+      : undefined
 
   try {
     if (!userId) {
@@ -15,8 +30,8 @@ export async function getPresence(req: Request, res: Response) {
       where: {
         userId,
         date: {
-          gte: startDate ? new Date(startDate as string) : undefined,
-          lte: endDate ? new Date(endDate as string) : undefined
+          gte: startDateString ? new Date(startDateString) : undefined,
+          lte: endDateString ? new Date(endDateString) : undefined
         }
       },
       orderBy: {
@@ -32,7 +47,8 @@ export async function getPresence(req: Request, res: Response) {
 }
 
 export async function setPresence(req: Request, res: Response) {
-  const { userId } = req.params
+  const rawUserId = req.params.userId
+  const userId = Array.isArray(rawUserId) ? rawUserId[0] : rawUserId
   const { date } = req.body
 
   try {
@@ -65,7 +81,8 @@ export async function setPresence(req: Request, res: Response) {
 }
 
 export async function deletePresence(req: Request, res: Response) {
-  const { userId } = req.params
+  const rawUserId = req.params.userId
+  const userId = Array.isArray(rawUserId) ? rawUserId[0] : rawUserId
   const { date } = req.body
 
   try {
