@@ -41,5 +41,7 @@ jobs:
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
       - uses: azure/container-apps-deploy-action@v1
         with:
+          containerAppName: pinadesk-backend
+          acrName: ${{ secrets.ACR_NAME }}
           imageToDeploy: ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
           resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
