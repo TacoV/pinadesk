@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: 24
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       - run: cd backend && npm ci
@@ -37,11 +37,11 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: az acr login --name ${{ secrets.ACR_NAME }}
       - run: |
-          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }} ./backend
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/stekkiesnackie:${{ github.sha }} ./backend
+          docker push ${{ secrets.ACR_NAME }}.azurecr.io/stekkiesnackie:${{ github.sha }}
       - uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: pinadesk-backend
+          containerAppName: stekkiesnackie-backend
           acrName: ${{ secrets.ACR_NAME }}
-          imageToDeploy: ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
+          imageToDeploy: ${{ secrets.ACR_NAME }}.azurecr.io/stekkiesnackie:${{ github.sha }}
           resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
