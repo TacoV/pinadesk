@@ -42,5 +42,5 @@ jobs:
       - uses: azure/container-apps-deploy-action@v1
         with:
           resource-group: ${{ secrets.RESOURCE_GROUP }}
-          container-app-name: pinadesk-backend
-          image: ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
+          name: pinadesk-backend
+          imageToDeploy: ${{ secrets.ACR_NAME }}.azurecr.io/pinadesk-backend:${{ github.sha }}
